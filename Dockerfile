@@ -1,6 +1,7 @@
 # Dockerfile
 FROM nginx:alpine
-COPY . /usr/share/nginx/html
+# Set the working directory
+WORKDIR /usr/share/nginx/html
 EXPOSE 80
 
 # Dockerfile reference
