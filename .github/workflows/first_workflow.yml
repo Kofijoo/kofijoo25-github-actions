@@ -12,6 +12,5 @@ jobs:
 
             - name: List Files 
               run: ls 
-
-            - name: Read file 
-              run: cat dockerfile
+            - name: Display Current Directory
+              run: pwd
