@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4.6.2
+        uses: actions/checkout@v4
 
       - name: Install Cowsay Program
         run: sudo apt-get install cowsay -y
@@ -17,7 +17,7 @@ jobs:
         run: cowsay -f dragon "Run for cover, I am a DRAGON......RAWR" >> dragon.txt
 
       - name: Upload Dragon File #correction
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v4
         with:
           name: dragon-text-file
           path: dragon.txt
@@ -29,7 +29,7 @@ jobs:
     steps:
 
       - name: Download Dragon File  #correction
-        uses: actions/download-artifact@v4.6.2
+        uses: actions/download-artifact@v4 
         with:
           name: dragon-text-file
 
@@ -42,7 +42,7 @@ jobs:
     steps: 
 
       - name: Download Dragon File  #correction
-        uses: actions/download-artifact@v4.6.2
+        uses: actions/download-artifact@v4 
         with:
           name: dragon-text-file
 
