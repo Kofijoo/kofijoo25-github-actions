@@ -1,0 +1,66 @@
+name: Fortune Teller CI/CD 🔮
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: 🛠️ Build Fortune Cow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🐄 Install Fun Utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cowsay fortune
+
+      - name: 🔮 Generate Fortune Message
+        run: |
+          fortune | cowsay -f tux > fortune.txt
+          echo "Generated fortune:"
+          cat fortune.txt
+
+      - name: 📤 Upload Fortune Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wise-cow
+          path: fortune.txt
+
+  test:
+    name: ✅ Test the Wisdom
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: 📥 Download Fortune
+        uses: actions/download-artifact@v4
+        with:
+          name: wise-cow
+
+      - name: 🔎 Check for Fortune
+        run: |
+          echo "Checking contents of fortune.txt..."
+          test -s fortune.txt && echo "Fortune exists!" || exit 1
+          grep -iE "life|luck|future|fortune|destiny" fortune.txt || echo "No fortune keywords, but it's still wise."
+
+  deploy:
+    name: 🚀 Release the Wisdom
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: 📥 Download Fortune
+        uses: actions/download-artifact@v4
+        with:
+          name: wise-cow
+
+      - name: 🎉 Read the Fortune
+        run: |
+          echo "Deploying message from the wise cow..."
+          cat fortune.txt
+          echo "🧠 Your destiny has been foretold..."
